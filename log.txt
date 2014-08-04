@@ -1,1 +1,2 @@
 2014/7/31  Day 1 Quantmod Lecture 1
+2014/8/04  Day 2,3 Quantmod Lecture 2
