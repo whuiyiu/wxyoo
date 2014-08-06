@@ -38,3 +38,43 @@ qplot(carat,price,data=dsmall,log="xy",geom=c("point","smooth"),colour=price)
 
 qplot(displ,hwy,data=mpg,colour=factor(cyl))
 qplot(displ,hwy,data=mpg,facets=.~year)+geom_smooth()
+
+p<-qplot(displ,hwy,data=mpg,colour=factor(cyl))
+summary(p)
+####save the pic as r object
+save(p,file=("plot1.rdata"))
+####load the pic to r
+load("plot.rdata")
+####save the pic as png
+ggsave("plot1.png",width=5,height=5)
+
+p<-ggplot(diamonds,aes(carat,price,colour=cut))
+p<-p+layer(geom="point")
+p<-ggplot(diamonds,aes(x=carat))
+p<-p+layer(geom="bar",geom_params=list(fill="steelblue"),
+           stat="bin",
+           stat_params=list(binwidth=2))
+p
+
+geom_histogram(binwidth=2,fill="steelblue")
+
+ggplot(msleep,aes(sleep_rem/sleep_total,awake))+geom_point()
+qplot(sleep_rem/sleep_total,awake,data=msleep)
+qplot(sleep_rem/sleep_total,awake,data=msleep)+geom_smooth()
+qplot(sleep_rem/sleep_total,awake,data=msleep,geom=c("smooth","point"))
+ggplot(msleep,aes(sleep_rem/sleep_total,awake))+geom_point()+geom_smooth()
+
+p<-ggplot(msleep,aes(sleep_rem/sleep_total,awake))
+p<-p+geom_point()
+p
+
+library(scales)
+bestfit<-geom_smooth(method="lm",se=F,colour=alpha("steelblue",0.5),size=2)
+qplot(sleep_rem,sleep_total,data=msleep)+bestfit
+qplot(awake,brainwt,data=msleep,log="y")+bestfit
+qplot(bodywt,brainwt,data=msleep,log="xy")+bestfit
+
+p<-ggplot(mtcars,aes(mpg,wt,colour=cyl))+geom_point()
+p
+mtcars<-transform(mtcars,mpg=mpg^2)
+p%+%mtcars
